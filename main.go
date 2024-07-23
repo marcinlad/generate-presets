@@ -14,12 +14,16 @@ import (
 	"github.com/joho/godotenv"
 )
 
-var authHash string
+var (
+	authHash string
+	table    string
+)
 
 func main() {
 	godotenv.Load()
 
 	authHash = os.Getenv("AUTH_HASH")
+	table = os.Getenv("DYNAMODB_TABLE")
 
 	cfg, err := config.LoadDefaultConfig(context.TODO(), func(o *config.LoadOptions) error {
 		o.Region = "eu-west-1"
@@ -35,7 +39,6 @@ func main() {
 }
 
 func scan(client *dynamodb.Client) {
-	table := "plat-dam-metadata-dev"
 	var scannedItems int64
 	var lastKey map[string]types.AttributeValue
 
