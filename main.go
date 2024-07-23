@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"sync"
+	"time"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
@@ -54,9 +55,11 @@ func scan(client *dynamodb.Client) {
 		}
 
 		scannedItems += int64(len(result.Items))
-		fmt.Println("Scanned items: ", scannedItems)
+		fmt.Println("All scanned items: ", scannedItems)
 
+		start := time.Now()
 		generatePresets(result.Items)
+		fmt.Println("Time taken to generate presets: ", time.Since(start).Milliseconds(), "ms")
 
 		if result.LastEvaluatedKey == nil {
 			fmt.Println("Ending. Scanned items: ", scannedItems)
