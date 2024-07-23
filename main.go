@@ -15,8 +15,9 @@ import (
 )
 
 var (
-	authHash string
-	table    string
+	authHash    string
+	table       string
+	endpointUrl string
 )
 
 func main() {
@@ -24,6 +25,7 @@ func main() {
 
 	authHash = os.Getenv("AUTH_HASH")
 	table = os.Getenv("DYNAMODB_TABLE")
+	endpointUrl = os.Getenv("ENDPOINT_URL")
 
 	cfg, err := config.LoadDefaultConfig(context.TODO(), func(o *config.LoadOptions) error {
 		o.Region = "eu-west-1"

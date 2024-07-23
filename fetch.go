@@ -7,10 +7,7 @@ import (
 	"net/http"
 )
 
-var (
-	client = http.Client{}
-	url    = "http://localhost:3000/management/picture/generate-presets"
-)
+var client = http.Client{}
 
 func fetch(pictures []string) (*http.Response, error) {
 	body := map[string][]string{
@@ -22,7 +19,7 @@ func fetch(pictures []string) (*http.Response, error) {
 		return nil, fmt.Errorf("error marshalling body: %w", err)
 	}
 
-	req, err := http.NewRequest("PATCH", url, bytes.NewBuffer(bodyBytes))
+	req, err := http.NewRequest("PATCH", endpointUrl, bytes.NewBuffer(bodyBytes))
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
